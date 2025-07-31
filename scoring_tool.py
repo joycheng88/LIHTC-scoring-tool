@@ -347,20 +347,23 @@ with st.sidebar:
         """, unsafe_allow_html=True)
     
     # Navigation Section
-    st.markdown("---")
-    st.header("Pages")
+    # st.markdown("---")
+    # st.header("Pages")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("About LIHTC", use_container_width=True):
-            st.switch_page("pages/About.py")
+    # col1, col2 = st.columns(2)
+    # with col1:
+    #     if st.button("About LIHTC", use_container_width=True):
+    #         st.switch_page("pages/About.py")
         
-        if st.button("QAP Criteria", use_container_width=True):
-            st.switch_page("pages/QAP_Criteria.py")
+    #     if st.button("Prediction Model", use_container_width=True):
+    #         st.switch_page("pages/prediction_model.py")
+        
+    #     if st.button("QAP Criteria", use_container_width=True):
+    #         st.switch_page("pages/QAP_Criteria.py")
     
-    with col2:
-        if st.button("Documentation", use_container_width=True):
-            st.switch_page("pages/QAP_Documentation.py")
+    # with col2:
+    #     if st.button("Documentation", use_container_width=True):
+    #         st.switch_page("pages/QAP_Documentation.py")
 
 #######################################################################################################################################
 # Main UI Layout
@@ -661,8 +664,9 @@ with main_col2:
 
             # If user point should be shown, add it to the map
             if show_user_point and st.session_state.get("scores_calculated", False):
-                import copy
-                display_map = copy.deepcopy(cached_map)
+                #import copy
+                #display_map = copy.deepcopy(cached_map)
+                display_map = cached_map
                 folium.Marker(
                     [st.session_state.latitude, st.session_state.longitude],
                     tooltip="Your Site",
@@ -836,8 +840,9 @@ with main_col2:
 
             # If user point should be shown, add it to the map
             if stable_show_user_point and st.session_state.get("scores_calculated", False):
-                import copy
-                display_map = copy.deepcopy(cached_map)
+                #import copy
+                #display_map = copy.deepcopy(cached_map)
+                display_map = cached_map
                 folium.Marker(
                     [st.session_state.latitude, st.session_state.longitude],
                     tooltip="Your Site",
@@ -1007,8 +1012,9 @@ with main_col2:
 
             # If user point should be shown, add it to the map
             if housing_needs_show_user_point and st.session_state.get("scores_calculated", False):
-                import copy
-                display_map = copy.deepcopy(cached_map)
+                #import copy
+                #display_map = copy.deepcopy(cached_map)
+                display_map = cached_map
                 folium.Marker(
                     [st.session_state.latitude, st.session_state.longitude],
                     tooltip="Your Site",

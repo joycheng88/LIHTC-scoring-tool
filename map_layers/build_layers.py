@@ -101,7 +101,13 @@ def add_tract_score_layer_stable(folium_map, gdf, score_column, layer_name, colo
     # Simplify geometries for better performance
     if simplify_tolerance > 0:
         gdf['geometry'] = gdf['geometry'].simplify(tolerance=simplify_tolerance, preserve_topology=False)
-        gdf = gdf[gdf.geometry.is_valid]
+        # CRITICAL: Filter out invalid, null, AND empty geometries
+        gdf = gdf[gdf.geometry.is_valid & gdf.geometry.notnull() & ~gdf.geometry.is_empty]
+    
+    # Check if we still have data after filtering
+    if gdf.empty:
+        print(f"No valid geometries after simplification for layer: {layer_name}")
+        return
 
     cmap = getattr(linear, colour_scheme).scale(vals.min(), vals.max())
     cmap.caption = layer_name
@@ -121,73 +127,13 @@ def add_tract_score_layer_stable(folium_map, gdf, score_column, layer_name, colo
             aliases=["Tract", layer_name],
             localize=True
         ),
-        options={"name": layer_name}
+        #options={"name": layer_name}
     ).add_to(folium_map)
 
     # Add legend
     cmap.add_to(folium_map)
 
 #----------------------------------------------------------------------------#
-
-def add_tract_score_layer(folium_map, gdf, score_column, layer_name, colour_scheme="YlGnBu_09", simplify_tolerance=0.005):
-    """
-    Args:
-        folium_map: folium.Map object
-        gdf: GeoDataFrame with polygon geometry and a score column
-        score_column: name of the column to colour by
-        layer_name: name of the layer shown in the layer control
-        colour_scheme: colour palette name from branca.linear (default: YlGnBu_09)
-        simplify_tolerance: tolerance for geometry simplification
-    """
-    # Ensure CRS is EPSG:4326 for folium
-    gdf = gdf.to_crs("EPSG:4326")
-    gdf[score_column] = pd.to_numeric(gdf[score_column], errors="coerce")
-    print(gdf[score_column].head())
-    
-    # Get colour scale
-    vals = gdf[score_column].dropna()
-    if vals.empty:
-        print(f"No valid numeric values for '{score_column}' — skipping layer: {layer_name}")
-        return
-
-    # Check if there are any valid numeric values
-    if len(vals) == 0:
-        print(f"No valid numeric values for '{score_column}' — skipping layer: {layer_name}")
-        return
-    print("Unique geometry types →", gdf.geom_type.unique())
-
-    # Simplify geometries for better performance
-    if simplify_tolerance > 0:
-        gdf['geometry'] = gdf['geometry'].simplify(tolerance=simplify_tolerance, preserve_topology=False)
-        gdf = gdf[gdf.geometry.is_valid]
-
-    # Create colour map
-    cmap = getattr(linear, colour_scheme).scale(vals.min(), vals.max())
-    cmap.caption = layer_name
-
-    layer = folium.FeatureGroup(name=layer_name)
-
-    # Add GeoJSON layer with style function
-    folium.GeoJson(
-        gdf,
-        name=layer_name,
-        style_function=lambda feature: {
-            "fillColor": cmap(feature["properties"][score_column]) if feature["properties"][score_column] is not None else "#d3d3d3",
-            "color": "gray",
-            "weight": 0.3,
-            "fillOpacity": 0.8
-        },
-        tooltip=folium.features.GeoJsonTooltip(
-            fields=["GEOID", score_column],
-            aliases=["Tract", layer_name],
-            localize=True
-        ), 
-    ).add_to(layer)
-
-    # Add the layer to the map
-    cmap.add_to(folium_map)
-    
-    return layer
 
 ##################################################################################################
 # Add point layers (applicants)
