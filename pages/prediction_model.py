@@ -227,13 +227,12 @@ with col2:
         
         result = st.session_state.get("prediction_result", 0)
         confidence = st.session_state.get("prediction_confidence", 0)
-        print(confidence)
 
         # Calculate probability of selection based on prediction result
         if result == 1.0:
-            probability_of_selection = float(confidence[0])
+            probability_of_selection = float(confidence[prediction])
         elif result == 0.0:
-            probability_of_selection = float(confidence[1])
+            probability_of_selection = 1-float(confidence[prediction])
         else:
             probability_of_selection = 0.0  # Default for unexpected values
 
