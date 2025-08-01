@@ -107,15 +107,13 @@ with col1:
     <div class="info-box">
         <h4>Low-Income Housing Tax Credit Program</h4>
         <p>
-            The Low-Income Housing Tax Credit (LIHTC) is a federal program designed to 
-            incentivize the development and rehabilitation of affordable rental housing 
-            across the United States. Established in 1986, it has become the nation's 
-            primary tool for creating affordable housing.
+            The Low-Income Housing Tax Credit (LIHTC) is a federal program designed to incentivize the development and rehabilitation of affordable rental housing across the United States. Established in 1986 through the Tax Reform Act, it has become the nation's primary tool for creating affordable housing.
         </p>
         <p>
-            The program provides tax credits to developers who agree to rent a certain 
-            portion of their housing units to low-income households at below-market rates 
-            for a minimum of 30 years.
+            The program provides tax credits to developers who agree to rent a certain portion of their housing units to low-income households at below-market rates for a minimum of 30 years. This program exists because the traditional real estate market often is not effective enough in creating quality rental housing for low-income individuals and families. LIHTC is helpful in bridging this housing gap by incentivizing private investment from developers to create affordable housing projects. It does this by providing a reduction in income tax liability to those who invest in affordable rental housing. 
+        </p>
+        <p>
+            Another benefit of the program comes in the form of community revitalization, and economic growth/partnerships. By encouraging the construction of new affordable housing projects and the rehabilitation of existing units, the overall supply of affordable rental options is expanded. Furthermore, LIHTC is able to promote collaboration between federal and state governments and private developers and investors. This building of social and economic foundations addresses larger social goals by increasing disposable income for low-income households, potentially bettering access to education, improving health outcomes, and revitalizing communities overall.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -126,13 +124,11 @@ with col1:
     st.markdown("""
     ### The Challenge
     
-    Small developers often lack the resources and expertise to effectively compete 
-    with large corporations for tax credits. The allocation process is complex and 
-    highly competitive, with government tax credits awarded based on:
+    Smaller developers often face challenges when seeking to secure tax credits, especially for initiatives like the LIHTC, due to a litany of factors. Issues such as complexity, competition, costs, and approval act as barriers for smaller developers.
     
-    - **Location characteristics** - Community quality, transportation access, education
-    - **Developer qualifications** - Experience, financial capacity, track record
-    - **Project design** - Sustainability, amenities, community impact
+    These programs are complex, requiring specialized legal, accounting, and compliance expertise that can be costly and difficult for smaller organizations to access. The competitive allocation process—particularly for the oversubscribed 9% credits—is typically driven by state-managed scoring systems that tend to favor larger, experienced developers or projects that align perfectly with narrowly defined criteria. This puts smaller or community-driven projects at a disadvantage. Additionally, these developments require significant upfront investment in land acquisition, feasibility studies, design, legal work, and community engagement—all before credits are awarded. Without access to flexible pre-development financing, these early costs can be prohibitive.
+    
+    Even with recent improvements like transferable tax credits, smaller projects often face high transaction costs and may not generate enough tax liability to fully benefit from the credits. This, combined with the fear of audits and compliance risks, can discourage participation. Finally, local government approval or financial support is frequently required or heavily weighted in allocation decisions. This can give municipalities the power to block projects or skew development away from high-opportunity areas—further complicating efforts by smaller developers to enter the affordable housing space. Addressing these barriers is essential for creating a more equitable and inclusive tax credit system.
     
     ### The Solution
     
@@ -143,34 +139,13 @@ with col1:
     """)
 
     # How it works
-    st.header("How the Tool Works")
+    st.header("How it works")
     
-    features = [
-        {
-            "title": "Location Analysis",
-            "description": "Comprehensive scoring of transportation, education, and community amenities"
-        },
-        {
-            "title": "Competitive Assessment", 
-            "description": "Compare your proposed site against successful applications in the region"
-        },
-        {
-            "title": "Data Visualization",
-            "description": "Interactive maps and charts to understand location advantages and challenges"
-        },
-        {
-            "title": "QAP Compliance",
-            "description": "Alignment with Georgia's Qualified Allocation Plan scoring criteria"
-        }
-    ]
+    st.markdown("""
+    Location Analysis: The LIHTC scoring tool uses data collected from the different development locations in the Atlanta Area to provide comprehensive scoring for the significant factors used in determining application acceptance. Scoring for transportation is based on transportation services and their availability in reference to the proposed location. Education scoring is based on the College and Career Readiness Performance Index scores based on the appropriate year averages. Other community amenities are scored based on the criteria outlined in the State of Georgia 2024 - 2025 Qualified Allocation Plan, which can be found under the documentation tab. 
     
-    for feature in features:
-        st.markdown(f"""
-        <div class="feature-card">
-            <h5>{feature['title']}</h5>
-            <p>{feature['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
+    Data Visualization: The tool offers interactive maps and charts for visualizing the data scoring for each location. This aspect of the tool allows potential developers to better analyze the advantages and challenges in relation to other areas on the map.       
+    """)
 
 with col2:
     # Development team info
@@ -198,37 +173,11 @@ with col2:
         "Location scoring for 4 key criteria",
         "Interactive mapping interface", 
         "Historical application analysis",
-        "Competitive benchmarking",
-        "QAP documentation access",
-        "Export and reporting features"
+        "QAP documentation access"
     ]
     
     for capability in capabilities:
         st.markdown(f"✓ {capability}")
-
-# Success stories section
-st.header("Success Through Strategic Planning")
-
-st.markdown("""
-### Why Location Matters
-
-The LIHTC program prioritizes developments that:
-
-- **Enhance community access** to jobs, services, and transportation
-- **Promote educational opportunities** through proximity to quality schools
-- **Support resident well-being** with access to healthcare and amenities
-- **Avoid environmental hazards** and undesirable land uses
-- **Strengthen community stability** through thoughtful site selection
-
-### Making Informed Decisions
-
-This tool helps you identify the strongest locations for your affordable housing 
-proposals by providing the same data and analysis methods used by successful 
-developers and state allocation agencies.
-""")
-
-# Call to action
-st.markdown("---")
 
 st.markdown("""
 <div class="highlight-box">
@@ -245,7 +194,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     if st.button("Start Scoring Tool", use_container_width=True):
-        st.switch_page("Scoring_Tool.py")
+        st.switch_page("scoring_tool.py")
 
 with col2:
     if st.button("View QAP Documentation", use_container_width=True):
@@ -254,37 +203,3 @@ with col2:
 with col3:
     if st.button("Scoring Criteria", use_container_width=True):
         st.switch_page("pages/QAP_Criteria.py")
-
-#######################################################################################################################################
-# Additional Resources
-#######################################################################################################################################
-
-with st.expander("Additional Resources"):
-    st.markdown("""
-    ### Learn More About LIHTC
-    
-    - **HUD LIHTC Database**: Search existing LIHTC properties nationwide
-    - **State Allocation Agencies**: Find your state's QAP and application process
-    - **LIHTC Training**: Professional development courses for developers
-    - **Advocacy Organizations**: National Low Income Housing Coalition and similar groups
-    
-    ### Technical Documentation
-    
-    - **Data Sources**: Census Bureau, Department of Education, Environmental agencies
-    - **Methodology**: Based on Georgia QAP 2024-2025 scoring criteria
-    - **Updates**: Tool updated annually to reflect current QAP requirements
-    - **Support**: Contact Emory Center for AI for technical assistance
-    """)
-
-#######################################################################################################################################
-# Footer
-#######################################################################################################################################
-
-st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: #666; font-size: 14px; padding: 20px;'>
-    <strong>LIHTC Scoring Tool</strong><br>
-    Developed by Students at Emory University | 
-    <a href="/" style="color: #2B2D42; text-decoration: none;">Return to Scoring Tool</a>
-</div>
-""", unsafe_allow_html=True)
